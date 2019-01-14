@@ -6,5 +6,6 @@ const API_ROOT = 'http://localhost/mindsymfony4/public/api';
 const responseBody = response => response.body;
 
 export const requests = {
-    get: (url) => superagent.get(`${API_ROOT}${url}`).then(responseBody)
+    get: (url) => superagent.get(`${API_ROOT}${url}`).then(responseBody),
+    post: (url, body = null) => superagent.post(`${API_ROOT}${url}`, body).then(responseBody)
 };

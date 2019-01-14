@@ -99,3 +99,13 @@ export const commentListFetch = (id) => {
             .catch(error => dispatch(commentListError(error)));
     }
 };
+
+export const userLoginAttempt = (username, password) => {
+    return (dispatch) => {
+        return requests.post('/login_check', {username, password}).then(
+            response => console.log(response)
+        ).catch(error => {
+            console.log('Login failed')
+        });
+    }
+};
