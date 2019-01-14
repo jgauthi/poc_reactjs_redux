@@ -102,7 +102,7 @@ export const commentListFetch = (id) => {
 
 export const userLoginAttempt = (username, password) => {
     return (dispatch) => {
-        return requests.post('/login_check', {username, password}).then(
+        return requests.post('/login_check', {username, password}, false).then(
             response => dispatch(userLoginSuccess(response.token, response.id))
         ).catch(error => {
             console.log('Login failed');
