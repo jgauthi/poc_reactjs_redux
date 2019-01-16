@@ -7,7 +7,7 @@ import {ConnectedRouter} from "react-router-redux";
 import {Route} from "react-router";
 import App from "./components/App";
 import reducer from "./reducer";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware from 'redux-thunk';
 import {tokenMiddleware} from "./middleware";
 
 const store = createStore(
