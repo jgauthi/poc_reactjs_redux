@@ -9,8 +9,6 @@ export const renderField = ({input, label, type, meta: {error}}) => {
         }
     );
 
-    console.log(error);
-
     return (
         <div className="form-group">
             {label !== null && label !== '' && <label>{label}</label>}
