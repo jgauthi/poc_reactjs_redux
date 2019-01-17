@@ -6,10 +6,15 @@ import Header from "./Header";
 import BlogPostContainer from "./BlogPostContainer";
 import {requests} from "../agent";
 import {connect} from 'react-redux';
+import {userProfileFetch} from "../actions/actions";
 
 const mapStateToProps = state => ({
     ...state.auth
 });
+
+const mapDispatchToProps = {
+    userProfileFetch
+};
 
 class App extends React.Component {
     constructor(props) {
@@ -21,12 +26,30 @@ class App extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const userId = window.localStorage.getItem('userId');
+        const {userProfileFetch} = this.props;
+
+        if (userId) {
+            userProfileFetch(userId);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        const {userId, userProfileFetch} = this.props;
+
+        if (prevProps.userId !== this.props.userId) {
+            console.log('App componentDidUpdate userId: ' + prevProps.userId);
+            userProfileFetch(userId);
+        }
+    }
+
     render() {
-        const {isAuthenticated} = this.props;
+        const {isAuthenticated, userData} = this.props;
 
         return (
             <div>
-                <Header isAuthenticated={isAuthenticated} />
+                <Header isAuthenticated={isAuthenticated} userData={userData} />
                 <Switch>
                     <Route path="/login" component={LoginForm}/>
                     <Route path="/blog-post/:id" component={BlogPostContainer}/>
@@ -37,4 +60,4 @@ class App extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

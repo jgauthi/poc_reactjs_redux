@@ -14,8 +14,8 @@ const mapDispatchToProps = {
 
 class LoginForm extends React.Component {
     componentDidUpdate(prevProps) {
-        console.log('componentDidUpdate prevProps: ' + prevProps.token);
-        console.log('componentDidUpdate this.props: ' + this.props.token);
+        console.log('LoginForm componentDidUpdate prevProps: ' + prevProps.token);
+        console.log('LoginForm componentDidUpdate this.props: ' + this.props.token);
         if (prevProps.token !== this.props.token) {
             this.props.history.push('/');
         }

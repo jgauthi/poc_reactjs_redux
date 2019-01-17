@@ -11,12 +11,13 @@ import {
     COMMENT_LIST_ERROR,
     COMMENT_LIST_RECEIVED,
     COMMENT_LIST_REQUEST,
-    COMMENT_LIST_UNLOAD, USER_LOGIN_SUCCESS
+    COMMENT_LIST_UNLOAD,
+    USER_LOGIN_SUCCESS, USER_PROFILE_ERROR, USER_PROFILE_RECEIVED, USER_PROFILE_REQUEST
 } from "./constants";
 import {SubmissionError} from "redux-form";
 
 export const blogPostListRequest = () => ({
-   type: BLOG_POST_LIST_REQUEST,
+    type: BLOG_POST_LIST_REQUEST,
 });
 
 export const blogPostListError = (error) => ({
@@ -58,20 +59,12 @@ export const blogPostUnload = () => ({
 
 export const blogPostFetch = (id) => {
     return (dispatch) => {
-        dispatch( blogPostRequest() );
+        dispatch(blogPostRequest());
         return requests.get(`/blog_posts/${id}`)
-            .then(response => dispatch( blogPostReceived(response) ))
-            .catch(error => dispatch( blogPostError(error) ))
+            .then(response => dispatch(blogPostReceived(response)))
+            .catch(error => dispatch(blogPostError(error)));
     }
 };
-
-export const blogPostAdd = () => ({
-    type: BLOG_POST_LIST_ADD,
-    data: {
-        id: Math.floor( Math.random() * 100 + 3 ),
-        title: 'A newly added blog post'
-    }
-});
 
 export const commentListRequest = () => ({
     type: COMMENT_LIST_REQUEST,
@@ -101,6 +94,14 @@ export const commentListFetch = (id) => {
     }
 };
 
+export const userLoginSuccess = (token, userId) => {
+    return {
+        type: USER_LOGIN_SUCCESS,
+        token,
+        userId
+    }
+};
+
 export const userLoginAttempt = (username, password) => {
     return (dispatch) => {
         return requests.post('/login_check', {username, password}, false).then(
@@ -113,10 +114,39 @@ export const userLoginAttempt = (username, password) => {
     }
 };
 
-export const userLoginSuccess = (token, userId) => {
+export const userProfileRequest = () => {
     return {
-        type: USER_LOGIN_SUCCESS,
-        token,
+        type: USER_PROFILE_REQUEST
+    }
+};
+
+export const userProfileError = () => {
+    return {
+        type: USER_PROFILE_ERROR
+    }
+};
+
+export const userProfileReceived = (userId, userData) => {
+    return {
+        type: USER_PROFILE_RECEIVED,
+        userData,
         userId
     }
 };
+
+export const userProfileFetch = (userId) => {
+    return (dispatch) => {
+        dispatch(userProfileRequest());
+        return requests.get(`/users/${userId}`, true).then(
+            response => dispatch(userProfileReceived(userId, response))
+        ).catch(error => dispatch(userProfileError()))
+    }
+};
+
+export const blogPostAdd = () => ({
+    type: BLOG_POST_LIST_ADD,
+    data: {
+        id: Math.floor(Math.random() * 100 + 3),
+        title: 'A newly added blog post'
+    }
+});
