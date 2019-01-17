@@ -113,7 +113,12 @@ export const commentAdd = (comment, blogPostId) => {
                 content: comment,
                 blogPost: `/api/blog_posts/${blogPostId}`
             }
-        ).then(response => dispatch(commentAdded(response)))
+        ).then(response => dispatch(commentAdded(response))
+        ).catch(error => {
+            throw new SubmissionError({
+                content: 'This is an error'
+            })
+        });
     }
 };
 
