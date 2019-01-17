@@ -7,12 +7,16 @@ import {
     BLOG_POST_LIST_REQUEST,
     BLOG_POST_RECEIVED,
     BLOG_POST_REQUEST,
-    BLOG_POST_UNLOAD,
+    BLOG_POST_UNLOAD, COMMENT_ADDED,
     COMMENT_LIST_ERROR,
     COMMENT_LIST_RECEIVED,
     COMMENT_LIST_REQUEST,
     COMMENT_LIST_UNLOAD,
-    USER_LOGIN_SUCCESS, USER_PROFILE_ERROR, USER_PROFILE_RECEIVED, USER_PROFILE_REQUEST, USER_SET_ID
+    USER_LOGIN_SUCCESS,
+    USER_PROFILE_ERROR,
+    USER_PROFILE_RECEIVED,
+    USER_PROFILE_REQUEST,
+    USER_SET_ID
 } from "./constants";
 import {SubmissionError} from "redux-form";
 
@@ -91,6 +95,25 @@ export const commentListFetch = (id) => {
         return requests.get(`/blog_posts/${id}/comments`)
             .then(response => dispatch(commentListReceived(response)))
             .catch(error => dispatch(commentListError(error)));
+    }
+};
+
+export const commentAdded = (comment) => {
+    return {
+        type: COMMENT_ADDED,
+        comment
+    }
+};
+
+export const commentAdd = (comment, blogPostId) => {
+    return (dispatch) => {
+        return requests.post(
+            '/comments',
+            {
+                content: comment,
+                blogPost: `/api/blog_posts/${blogPostId}`
+            }
+        ).then(response => dispatch(commentAdded(response)))
     }
 };
 
