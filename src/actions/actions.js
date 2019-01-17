@@ -4,7 +4,7 @@ import {
     BLOG_POST_LIST_ADD,
     BLOG_POST_LIST_ERROR,
     BLOG_POST_LIST_RECEIVED,
-    BLOG_POST_LIST_REQUEST,
+    BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_SET_PAGE,
     BLOG_POST_RECEIVED,
     BLOG_POST_REQUEST,
     BLOG_POST_UNLOAD,
@@ -36,10 +36,15 @@ export const blogPostListReceived = (data) => ({
     data
 });
 
-export const blogPostListFetch = () => {
+export const blogPostListSetPage = (page) => ({
+    type: BLOG_POST_LIST_SET_PAGE,
+    page
+});
+
+export const blogPostListFetch = (page = 1) => {
     return (dispatch) => {
         dispatch(blogPostListRequest());
-        return requests.get('/blog_posts')
+        return requests.get(`/blog_posts?_page=${page}`)
             .then(response => dispatch(blogPostListReceived(response)))
             .catch(error => dispatch(blogPostListError(error)));
     }
