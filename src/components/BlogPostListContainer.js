@@ -2,6 +2,7 @@ import React from 'react';
 import BlogPostList from "./BlogPostList";
 import {blogPostListFetch} from "../actions/actions";
 import {connect} from "react-redux";
+import {Paginator} from "./Paginator";
 
 const mapStateToProps = state => ({
     ...state.blogPostList
@@ -19,7 +20,12 @@ class BlogPostListContainer extends React.Component {
     render() {
         const {posts, isFetching} = this.props;
 
-        return (<BlogPostList posts={posts} isFetching={isFetching} />)
+        return (
+            <div>
+                <BlogPostList posts={posts} isFetching={isFetching} />
+                <Paginator currentPage={1} pageCount={10}/>
+            </div>
+            )
     }
 }
 
