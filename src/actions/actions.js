@@ -7,12 +7,13 @@ import {
     BLOG_POST_LIST_REQUEST,
     BLOG_POST_RECEIVED,
     BLOG_POST_REQUEST,
-    BLOG_POST_UNLOAD, COMMENT_ADDED,
+    BLOG_POST_UNLOAD,
+    COMMENT_ADDED,
     COMMENT_LIST_ERROR,
     COMMENT_LIST_RECEIVED,
     COMMENT_LIST_REQUEST,
     COMMENT_LIST_UNLOAD,
-    USER_LOGIN_SUCCESS,
+    USER_LOGIN_SUCCESS, USER_LOGOUT,
     USER_PROFILE_ERROR,
     USER_PROFILE_RECEIVED,
     USER_PROFILE_REQUEST,
@@ -90,7 +91,6 @@ export const commentListUnload = () => ({
 });
 
 export const commentListFetch = (id) => {
-    console.log('Fetching comments...');
     return (dispatch) => {
         dispatch(commentListRequest());
         return requests.get(`/blog_posts/${id}/comments`)
@@ -138,6 +138,12 @@ export const userLoginAttempt = (username, password) => {
                 _error: 'Username or password is invalid'
             })
         });
+    }
+};
+
+export const userLogout = () => {
+    return {
+        type: USER_LOGOUT
     }
 };
 
