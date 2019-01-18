@@ -9,10 +9,7 @@ export const parseApiErrors = (error) => {
 };
 
 export const hydraPageCount = (collection) => {
-
-    console.log( 'hydraPageCount, collection: ' + collection );
     if (!collection || !collection['hydra:view']) {
-
         return 1;
     }
 
