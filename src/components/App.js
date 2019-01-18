@@ -50,7 +50,7 @@ class App extends React.Component {
 
         return (
             <div>
-                <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} />
+                <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout}/>
                 <Switch>
                     <Route path="/login" component={LoginForm}/>
                     <Route path="/blog-post/:id" component={BlogPostContainer}/>
