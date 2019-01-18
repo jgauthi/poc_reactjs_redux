@@ -4,9 +4,6 @@ import {Link} from "react-router-dom";
 import {Message} from "./Message";
 
 class BlogPostList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         const {posts} = this.props;
 

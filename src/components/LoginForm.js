@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     userLoginAttempt
-}
+};
 
 class LoginForm extends React.Component {
     componentDidUpdate(prevProps) {

@@ -5,7 +5,7 @@ export default class Header extends React.Component {
     renderUser() {
         const {userData, logout} = this.props;
 
-        if(null === userData) {
+        if (null === userData) {
             return (<i className="fas fa-spinner fa-spin"/>);
         }
 
