@@ -4,7 +4,8 @@ import {
     BLOG_POST_LIST_ADD,
     BLOG_POST_LIST_ERROR,
     BLOG_POST_LIST_RECEIVED,
-    BLOG_POST_LIST_REQUEST, BLOG_POST_LIST_SET_PAGE,
+    BLOG_POST_LIST_REQUEST,
+    BLOG_POST_LIST_SET_PAGE,
     BLOG_POST_RECEIVED,
     BLOG_POST_REQUEST,
     BLOG_POST_UNLOAD,
@@ -13,10 +14,13 @@ import {
     COMMENT_LIST_RECEIVED,
     COMMENT_LIST_REQUEST,
     COMMENT_LIST_UNLOAD,
-    USER_LOGIN_SUCCESS, USER_LOGOUT,
+    USER_CONFIRMATION_SUCCESS,
+    USER_LOGIN_SUCCESS,
+    USER_LOGOUT,
     USER_PROFILE_ERROR,
     USER_PROFILE_RECEIVED,
-    USER_PROFILE_REQUEST, USER_REGISTER_SUCCESS,
+    USER_PROFILE_REQUEST,
+    USER_REGISTER_SUCCESS,
     USER_SET_ID
 } from "./constants";
 import {SubmissionError} from "redux-form";
@@ -170,6 +174,23 @@ export const userRegister = (username, password, retypedPassword, email, name) =
         });
     }
 };
+
+export const userConfirmationSuccess = () => {
+    return {
+        type: USER_CONFIRMATION_SUCCESS
+    }
+};
+
+export const userConfirm = (confirmationToken) => {
+    return (dispatch) => {
+        return requests.post('/users/confirm', {confirmationToken}, false)
+            .then(() => dispatch( userConfirmationSuccess() ))
+            .catch(error => {
+                throw new SubmissionError({ _error: 'Confirmation token is invalid' });
+            });
+    }
+};
+
 
 export const userSetId = (userId) => {
     return {
