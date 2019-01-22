@@ -1,6 +1,7 @@
 import {requests} from "../agent";
 import {
     BLOG_POST_ERROR,
+    BLOG_POST_FORM_UNLOAD,
     BLOG_POST_LIST_ERROR,
     BLOG_POST_LIST_RECEIVED,
     BLOG_POST_LIST_REQUEST,
@@ -83,6 +84,10 @@ export const blogPostFetch = (id) => {
             .catch(error => dispatch(blogPostError(error)));
     }
 };
+
+export const blogPostFormUnload = () => ({
+    type: BLOG_POST_FORM_UNLOAD
+});
 
 export const commentListRequest = () => ({
     type: COMMENT_LIST_REQUEST,
