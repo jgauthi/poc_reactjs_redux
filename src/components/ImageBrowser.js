@@ -3,7 +3,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 export class ImageBrowser extends React.Component {
     render() {
-        const {images, deleteHandler} = this.props;
+        const {images, deleteHandler, isLocked} = this.props;
 
         return (
             <TransitionGroup component={null}>
@@ -21,7 +21,7 @@ export class ImageBrowser extends React.Component {
                                          className="img-fluid"/>
                                 </div>
                                 <div className="mb-2">
-                                    <button type="button"className="btn btn-outline-danger btn-sm" onClick={onImageDeleteClick}>
+                                    <button type="button" className="btn btn-outline-danger btn-sm" onClick={onImageDeleteClick} disabled={isLocked}>
                                         Remove
                                     </button>
                                 </div>
