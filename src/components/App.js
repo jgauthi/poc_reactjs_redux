@@ -42,7 +42,7 @@ class App extends React.Component {
     componentDidUpdate(prevProps) {
         const {userId, userData, userProfileFetch} = this.props;
 
-        if (prevProps.userId !== this.props.userId && userData === null) {
+    	if (prevProps.userId !== userId && userId !== null && userData === null) {
             userProfileFetch(userId);
         }
     }
