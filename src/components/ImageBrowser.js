@@ -17,7 +17,7 @@ export class ImageBrowser extends React.Component {
                         <CSSTransition timeout={1000} classNames="fade" key={image.id}>
                             <div className="col-md-6 col-lg-4">
                                 <div className="mt-2 mb-2">
-                                    <img src={`http://localhost/mindsymfony4/public/${image.url}`}
+                                    <img src={`http://localhost:8000/${image.url}`}
                                          className="img-fluid"/>
                                 </div>
                                 <div className="mb-2">
